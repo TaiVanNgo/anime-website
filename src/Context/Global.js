@@ -29,8 +29,6 @@ const reducer = (state, action) => {
             return state;
 
     }
-
-    return state;
 }
 
 export const GlobalContextProvider = ({children}) => {
