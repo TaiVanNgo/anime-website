@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 function AnimeItem() {
@@ -7,7 +7,7 @@ function AnimeItem() {
 
   //state
   const [anime, setAnime] = useState({});
-  const [characers, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const [showMore, setShowMore] = useState(false);
   //This use to chagne the title to english or japanese
   const [japaneseTitle, setJapaneseTitle] = useState(false);
@@ -137,11 +137,29 @@ function AnimeItem() {
           ></iframe>
         )}
       </div>
+      <h3 className="title">Characters</h3>
+      <div className="characters">
+        {characters?.map((character, index) => {
+          // const {role, character?.mal_id, character?.name, character?.images.jpg.image_url} = character;
+          const { role } = character;
+          const { images, name, mal_id } = character.character;
+          return (
+            <Link to={`/character/${mal_id}`} key={index}>
+              <div className="character">
+                <img src={images?.jpg.image_url} alt="" />
+                <h4>{name}</h4>
+                <p>{role}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
     </AnimeItemStyled>
   );
 }
 const AnimeItemStyled = styled.div`
-  padding: 3rem 18rem;
+  padding: 3rem 10rem;
+
   background-color: #ededed;
 
   h1 {
@@ -187,6 +205,19 @@ const AnimeItemStyled = styled.div`
     }
   }
 
+  .trailer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    iframe {
+      outline: none;
+      border: 5px solid #e5e7eb;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+  }
+
   .details {
     background-color: white;
     border-radius: 20px;
@@ -213,6 +244,38 @@ const AnimeItemStyled = styled.div`
       p span:first-child {
         font-weight: 600;
         color: #454e56;
+      }
+    }
+  }
+
+  .characters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 2rem;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 5px solid #e5e7eb;
+    .character {
+      padding: 0.4rem 0.6rem;
+      border-radius: 7px;
+      background-color: #ededed;
+      transition: all 0.4s ease-in-out;
+
+      img {
+        width: 100%;
+      }
+
+      h4 {
+        padding: 0.5rem 0;
+        color: #454e56;
+      }
+
+      p {
+        color: #27ae60;
+      }
+      &:hover {
+        transform: translateY(-5px);
       }
     }
   }
