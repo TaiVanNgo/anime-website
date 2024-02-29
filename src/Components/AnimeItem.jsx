@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 function AnimeItem() {
   const { id } = useParams();
@@ -8,10 +9,12 @@ function AnimeItem() {
   const [anime, setAnime] = useState({});
   const [characers, setCharacters] = useState([]);
   const [showMore, setShowMore] = useState(false);
-
+  //This use to chagne the title to english or japanese
+  const [japaneseTitle, setJapaneseTitle] = useState(false);
   //destructure Anime
   const {
     title,
+    title_japanese,
     synopsis,
     trailer,
     duration,
@@ -51,8 +54,14 @@ function AnimeItem() {
   }, []);
 
   return (
-    <div>
-      <h1>{title}</h1>
+    <AnimeItemStyled>
+      <h1
+        onClick={() => {
+          setJapaneseTitle(!japaneseTitle);
+        }}
+      >
+        {japaneseTitle ? title_japanese : title}
+      </h1>
       <div className="details">
         <div className="detail">
           <div className="image">
@@ -128,8 +137,85 @@ function AnimeItem() {
           ></iframe>
         )}
       </div>
-    </div>
+    </AnimeItemStyled>
   );
 }
+const AnimeItemStyled = styled.div`
+  padding: 3rem 18rem;
+  background-color: #ededed;
+
+  h1 {
+    display: inline-block;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    color: #8b0000;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+      /* transform: skew(-3deg); */
+      transform: scale(1.02); /* Example transformation on hover */
+    }
+  }
+
+  .title {
+    display: inline-block;
+    margin: 3rem 0;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #8b0000;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+      transform: skew(-3deg);
+    }
+  }
+
+  .description {
+    margin-top: 2rem;
+    color: #6c7983;
+    line-height: 1.7rem;
+
+    button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #8b0000; /* Dark red */
+      font-weight: 600;
+    }
+  }
+
+  .details {
+    background-color: white;
+    border-radius: 20px;
+    padding: 2rem;
+    border: 5px solid #e5e7eb;
+
+    .detail {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      img {
+        border-radius: 7px;
+      }
+    }
+
+    .anime-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      p {
+        display: flex;
+        gap: 1rem;
+      }
+
+      p span:first-child {
+        font-weight: 600;
+        color: #454e56;
+      }
+    }
+  }
+`;
 
 export default AnimeItem;
