@@ -24,6 +24,16 @@ const reducer = (state, action) => {
                 ...state,
                 popularAnime: action.payload, loading: false,
             }
+        case GET_UPCOMING_ANIME:
+            return {
+                ...state,
+                upcomingAnime: action.payload, loading: false,
+            }
+        case GET_AIRING_ANIME:
+            return {
+                ...state,
+                airingAnime: action.payload, loading: false,
+            }
         case SEARCH:    
             return {
                 ...state,
@@ -49,7 +59,8 @@ export const GlobalContextProvider = ({children}) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const [search, setSearch] = useState("");
-
+    
+    //handlers change
     const handleChange = (e) => {
         setSearch(e.target.value);
         if(e.target.value === ''){
@@ -57,6 +68,7 @@ export const GlobalContextProvider = ({children}) => {
         }
     };
 
+    //handle submit
     const handleSubmit = (e) => {
         e.preventDefault();
         if(search){
@@ -74,6 +86,23 @@ export const GlobalContextProvider = ({children}) => {
         const response = await fetch(`${baseUrl}/top/anime?filter=bypopularity`);
         const data = await response.json();
         dispatch({type: GET_POPULAR_ANIME, payload: data.data})
+    }
+
+    //fetch upcoming anime
+    const getUpcomingAnime = async () => {
+        dispatch({type: LOADING});
+        const response = await fetch(`${baseUrl}/top/anime?filter=upcoming`);
+        const data = await response.json();
+
+        dispatch({type: GET_UPCOMING_ANIME, payload: data.data})
+    }
+
+    //fetch airing anime
+    const getAiringAnime = async () => {
+        dispatch({type: LOADING});
+        const response = await fetch(`${baseUrl}/top/anime?filter=airing`);
+        const data = await response.json();
+        dispatch({type: GET_AIRING_ANIME, payload: data.data}) 
     }
 
     //search anime
@@ -96,6 +125,9 @@ export const GlobalContextProvider = ({children}) => {
             handleSubmit,
             searchAnime,
             search,
+            getPopularAnime,
+            getUpcomingAnime,
+            getAiringAnime,
         }}>
             {children}
         </GlobalContext.Provider>
