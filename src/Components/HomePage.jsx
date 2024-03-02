@@ -7,6 +7,8 @@ const HomePage = () => {
   const {
     handleSubmit,
     search,
+    isSearch,
+    searchResults,
     searchAnime,
     handleChange,
     getPopularAnime,
@@ -48,7 +50,7 @@ const HomePage = () => {
               Popular
             </button>
           </div>
-          <form action="" className="search-form">
+          <form action="" className="search-form" onSubmit={handleSubmit}>
             <div className="input-control">
               <input
                 type="text"
@@ -56,9 +58,7 @@ const HomePage = () => {
                 value={search}
                 onChange={handleChange}
               />
-              <button type="submit" onClick={handleSubmit}>
-                Search
-              </button>
+              <button type="submit">Search</button>
             </div>
           </form>
           <div className="filter-btn airing-filter">
@@ -82,6 +82,9 @@ const HomePage = () => {
             </button>
           </div>
         </div>
+        <div className="search-length">
+          {isSearch && <h4>Found {searchResults.length} Anime</h4>}
+        </div>
       </header>
       {switchComponent()}
     </HomepageStyled>
@@ -91,7 +94,7 @@ const HomePage = () => {
 const HomepageStyled = styled.div`
   background-color: #ededed;
   header {
-    padding: 2rem 5rem;
+    padding: 1rem 1rem;
     width: 60%;
     margin: 0 auto;
     transition: all 0.4s ease-in-out;
@@ -131,9 +134,11 @@ const HomepageStyled = styled.div`
         .input-control {
           position: relative;
           transition: all 0.4s ease-in-out;
+          flex-grow: 1;
         }
 
         .input-control input {
+          flex-grow: 1;
           width: 100%;
           padding: 0.7rem 1rem;
           border: none;
@@ -152,6 +157,12 @@ const HomepageStyled = styled.div`
           transform: translateY(-50%);
         }
       }
+    }
+    .search-length {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.5rem;
     }
   }
 `;

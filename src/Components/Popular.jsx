@@ -3,11 +3,11 @@ import { useGlobalContext } from "../Context/Global";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function Popular() {
-  const { popularAnime, isSearch } = useGlobalContext();
+function Popular({ rendered }) {
+  const { popularAnime, isSearch, searchResults } = useGlobalContext();
 
   const conditionalRender = () => {
-    if (!isSearch) {
+    if (!isSearch && rendered === "popular") {
       return popularAnime.map((anime) => {
         return (
           <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
@@ -16,6 +16,15 @@ function Popular() {
           </Link>
         );
       });
+    } else {
+      return( searchResults.map ((anime) => {
+        return (
+          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
+            <img src={anime.images.jpg.large_image_url} alt="" />
+            <h4>{anime.title}</h4>
+          </Link>
+        );
+      })) 
     }
   };
 

@@ -72,7 +72,7 @@ export const GlobalContextProvider = ({children}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(search){
-            searchAnime()
+            searchAnime(search);
             state.isSearch = true;
         } else{
             state.isSearch = false;
