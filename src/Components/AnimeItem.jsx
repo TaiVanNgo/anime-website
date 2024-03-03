@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { IoMdArrowBack } from "react-icons/io";
 
 function AnimeItem() {
   const { id } = useParams();
@@ -55,6 +56,11 @@ function AnimeItem() {
 
   return (
     <AnimeItemStyled>
+      <div className="back">
+        <Link to={`/`}>
+          <IoMdArrowBack /> Back To Home
+        </Link>
+      </div>
       <h1
         onClick={() => {
           setJapaneseTitle(!japaneseTitle);
@@ -132,7 +138,7 @@ function AnimeItem() {
             width="800"
             height="450"
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         )}
@@ -144,7 +150,7 @@ function AnimeItem() {
           const { role } = character;
           const { images, name, mal_id } = character.character;
           return (
-            <Link to={`/character/${mal_id}`} key={index}>
+            <Link to={`/anime/${id}/character/${mal_id}`} key={index}>
               <div className="character">
                 <img src={images?.jpg.image_url} alt="" />
                 <h4>{name}</h4>
@@ -162,9 +168,26 @@ const AnimeItemStyled = styled.div`
 
   background-color: #ededed;
 
+  .back {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    a {
+      /* this is the <Link> inside the div*/
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #eb5757;
+    }
+  }
+
   h1 {
     display: inline-block;
     font-size: 3rem;
+    margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     cursor: pointer;
     color: #8b0000;

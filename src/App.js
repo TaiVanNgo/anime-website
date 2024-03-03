@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Popular from './Components/Popular';
 import AnimeItem from './Components/AnimeItem';
 import HomePage from './Components/HomePage';
+import CharacterGallery from './Components/CharacterGallery';
 
 function App() {
 
@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/anime/:id' element={<AnimeItem />} />
+        <Route path='/anime/:id/character/:characterID' element={<CharacterGallery />} />
       </Routes>
     </BrowserRouter>
   );
