@@ -2,6 +2,7 @@ import React from "react";
 import { useGlobalContext } from "../Context/Global";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Sidebar from "./Sidebar";
 
 function Airing({ rendered }) {
   const { airingAnime, isSearch, searchResults } = useGlobalContext();
@@ -31,6 +32,7 @@ function Airing({ rendered }) {
   return (
     <AiringStyled>
       <div className="airing-anime">{conditionalRender()}</div>
+      <Sidebar />
     </AiringStyled>
   );
 }

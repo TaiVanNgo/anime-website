@@ -52,20 +52,10 @@ const HomePage = () => {
                 setRendered("popular");
               }}
             >
+              <i className="fas fa-fire"></i>
               Popular
             </button>
           </div>
-          <form action="" className="search-form" onSubmit={handleSubmit}>
-            <div className="input-control">
-              <input
-                type="text"
-                placeholder="Search Anime"
-                value={search}
-                onChange={handleChange}
-              />
-              <button type="submit">Search</button>
-            </div>
-          </form>
           <div className="filter-btn airing-filter">
             <button
               onClick={() => {
@@ -86,6 +76,17 @@ const HomePage = () => {
               Upcoming
             </button>
           </div>
+          <form action="" className="search-form" onSubmit={handleSubmit}>
+            <div className="input-control">
+              <input
+                type="text"
+                placeholder="Search Anime"
+                value={search}
+                onChange={handleChange}
+              />
+              <button type="submit">Search</button>
+            </div>
+          </form>
         </div>
         <div className="search-length">
           {isSearch && <h4>Found {searchResults.length} Anime</h4>}
@@ -104,6 +105,8 @@ const HomepageStyled = styled.div`
     margin: 0 auto;
     transition: all 0.4s ease-in-out;
 
+    @media screen and (max-width: 768px) {
+    }
     .logo {
       display: flex;
       align-items: center;

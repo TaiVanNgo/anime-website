@@ -2,6 +2,8 @@ import React from "react";
 import { useGlobalContext } from "../Context/Global";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Sidebar from "./Sidebar";
+
 
 function Popular({ rendered }) {
   const { popularAnime, isSearch, searchResults } = useGlobalContext();
@@ -23,6 +25,7 @@ function Popular({ rendered }) {
             <img src={anime.images.jpg.large_image_url} alt="" />
             <h4>{anime.title}</h4>
           </Link>
+
         );
       });
     }
@@ -31,6 +34,7 @@ function Popular({ rendered }) {
   return (
     <PopularStyled>
       <div className="popular-anime">{conditionalRender()}</div>
+      <Sidebar />
     </PopularStyled>
   );
 }
@@ -52,6 +56,8 @@ const PopularStyled = styled.div`
 
     h4 {
       font-size: 1rem;
+      color: #ce5e5e;
+
     }
     a {
       height: 500px;

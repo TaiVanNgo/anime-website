@@ -23,7 +23,8 @@ const CharacterGallery = () => {
     <CharacterGalleryStyled>
       <div className="back">
         <Link to={`/anime/${id}`}>
-          <IoMdArrowBack /> Back To Previous Page
+          <IoMdArrowBack />
+          Back To Previous Page
         </Link>
       </div>
       <div className="big-image">
