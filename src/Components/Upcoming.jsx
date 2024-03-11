@@ -3,9 +3,11 @@ import { useGlobalContext } from "../Context/Global";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
+import { useWindowWidth } from "../hooks/useWindowWidth";
 
 function Upcoming({ rendered }) {
   const { upcomingAnime, isSearch, searchResults } = useGlobalContext();
+  const windowWidth = useWindowWidth();
 
   const conditionalRender = () => {
     if (!isSearch && rendered === "upcoming") {
@@ -32,7 +34,7 @@ function Upcoming({ rendered }) {
   return (
     <UpcomingStyled>
       <div className="upcoming-anime">{conditionalRender()}</div>
-      <Sidebar />
+      {windowWidth > 1000 && <Sidebar />}
     </UpcomingStyled>
   );
 }

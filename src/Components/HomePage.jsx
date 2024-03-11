@@ -4,6 +4,7 @@ import { useGlobalContext } from "../Context/Global";
 import styled from "styled-components";
 import Upcoming from "./Upcoming";
 import Airing from "./Airing";
+import { HiOutlineMenu } from "react-icons/hi";
 
 const HomePage = () => {
   const {
@@ -11,14 +12,13 @@ const HomePage = () => {
     search,
     isSearch,
     searchResults,
-    searchAnime,
     handleChange,
-    getPopularAnime,
     getUpcomingAnime,
     getAiringAnime,
   } = useGlobalContext();
 
   const [rendered, setRendered] = useState("popular");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const switchComponent = () => {
     switch (rendered) {
@@ -87,6 +87,12 @@ const HomePage = () => {
               <button type="submit">Search</button>
             </div>
           </form>
+          <HiOutlineMenu
+            className="icon"
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+            }}
+          />
         </div>
         <div className="search-length">
           {isSearch && <h4>Found {searchResults.length} Anime</h4>}
@@ -105,8 +111,6 @@ const HomepageStyled = styled.div`
     margin: 0 auto;
     transition: all 0.4s ease-in-out;
 
-    @media screen and (max-width: 768px) {
-    }
     .logo {
       display: flex;
       align-items: center;
@@ -119,6 +123,13 @@ const HomepageStyled = styled.div`
       align-items: center;
       justify-content: center;
       gap: 1rem;
+
+      .icon {
+        display: none;
+        width: 80px;
+        height: 32px;
+        cursor: pointer;
+      }
 
       button {
         display: flex;
@@ -142,11 +153,9 @@ const HomepageStyled = styled.div`
         .input-control {
           position: relative;
           transition: all 0.4s ease-in-out;
-          flex-grow: 1;
         }
 
         .input-control input {
-          flex-grow: 1;
           width: 100%;
           padding: 0.7rem 1rem;
           border: none;
@@ -165,12 +174,47 @@ const HomepageStyled = styled.div`
           transform: translateY(-50%);
         }
       }
+
+      @media screen and (max-width: 768px) {
+        .icon {
+          display: flex;
+        }
+      }
     }
     .search-length {
       display: flex;
       align-items: center;
       justify-content: center;
       margin-top: 0.5rem;
+    }
+    @media screen and (max-width: 1000px) {
+      .search-container button {
+        gap: 0.3rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .filter-btn button{
+        display: none;
+      }
+
+      .input-control button {
+        display: none;
+      }
+
+      .search-container {
+        justify-content: flex-end; // align items to the right
+      }
+
+      .search-container .input-control input {
+        width: 80%; // increase the width of the input
+        margin-left: 10px; // add some space between the input and the icon
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    header {
+      width: 100%;
     }
   }
 `;

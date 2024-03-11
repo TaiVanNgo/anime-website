@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../Context/Global";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
+import { useWindowWidth } from "../hooks/useWindowWidth";
 
 
 function Popular({ rendered }) {
   const { popularAnime, isSearch, searchResults } = useGlobalContext();
+
+  const windowWidth = useWindowWidth();
 
   const conditionalRender = () => {
     if (!isSearch && rendered === "popular") {
@@ -25,7 +28,6 @@ function Popular({ rendered }) {
             <img src={anime.images.jpg.large_image_url} alt="" />
             <h4>{anime.title}</h4>
           </Link>
-
         );
       });
     }
@@ -34,7 +36,7 @@ function Popular({ rendered }) {
   return (
     <PopularStyled>
       <div className="popular-anime">{conditionalRender()}</div>
-      <Sidebar />
+      {windowWidth > 1000 && <Sidebar />}
     </PopularStyled>
   );
 }
@@ -57,7 +59,6 @@ const PopularStyled = styled.div`
     h4 {
       font-size: 1rem;
       color: #ce5e5e;
-
     }
     a {
       height: 500px;

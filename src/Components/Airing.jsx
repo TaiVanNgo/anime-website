@@ -3,9 +3,11 @@ import { useGlobalContext } from "../Context/Global";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
+import { useWindowWidth } from "../hooks/useWindowWidth";
 
 function Airing({ rendered }) {
   const { airingAnime, isSearch, searchResults } = useGlobalContext();
+  const windowWidth = useWindowWidth();
 
   const conditionalRender = () => {
     if (!isSearch && rendered === "airing") {
@@ -32,7 +34,8 @@ function Airing({ rendered }) {
   return (
     <AiringStyled>
       <div className="airing-anime">{conditionalRender()}</div>
-      <Sidebar />
+      {windowWidth > 1000 && <Sidebar />}
+
     </AiringStyled>
   );
 }
